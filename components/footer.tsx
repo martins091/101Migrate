@@ -1,6 +1,15 @@
-import Link from "next/link"
-import Image from "next/image"
-import { Linkedin, Twitter, Facebook, Instagram, Youtube, Send, MessageCircle, ArrowUpRight } from "lucide-react"
+import Link from "next/link";
+import Image from "next/image";
+import {
+  Linkedin,
+  Twitter,
+  Facebook,
+  Instagram,
+  Youtube,
+  Send,
+  MessageCircle,
+  ArrowUpRight,
+} from "lucide-react";
 
 const footerLinks = {
   services: [
@@ -24,7 +33,7 @@ const footerLinks = {
     { label: "Free Resources", href: "/resources" },
     { label: "Community", href: "/contact#community" },
   ],
-}
+};
 
 const socialLinks = [
   { icon: Linkedin, href: "#", label: "LinkedIn" },
@@ -32,7 +41,7 @@ const socialLinks = [
   { icon: Facebook, href: "#", label: "Facebook" },
   { icon: Instagram, href: "#", label: "Instagram" },
   { icon: Youtube, href: "#", label: "YouTube" },
-]
+];
 
 export function Footer() {
   return (
@@ -46,8 +55,12 @@ export function Footer() {
                 <Send className="w-5 h-5 text-secondary" />
               </div>
               <div>
-                <h4 className="font-semibold text-lg">Subscribe to our newsletter</h4>
-                <p className="text-background/60 text-sm">Get immigration tips and updates delivered to your inbox</p>
+                <h4 className="font-semibold text-lg">
+                  Subscribe to our newsletter
+                </h4>
+                <p className="text-background/60 text-sm">
+                  Get immigration tips and updates delivered to your inbox
+                </p>
               </div>
             </div>
             <form className="flex gap-3 w-full md:w-auto">
@@ -78,12 +91,13 @@ export function Footer() {
                 alt="101Migrate Logo"
                 width={180}
                 height={60}
-                className="h-14 w-auto object-contain brightness-0 invert"
+                className="h-14 w-auto object-contain"
               />
             </Link>
             <p className="text-background/70 leading-relaxed mb-6 max-w-sm">
-              Your one-stop gateway to U.S. immigration success. Premium educational and strategic support services for
-              EB-2 NIW and EB-1A pathways. Based in Nigeria, serving clients globally.
+              Your one-stop gateway to U.S. immigration success. Premium
+              educational and strategic support services for EB-2 NIW and EB-1A
+              pathways. Based in Nigeria, serving clients globally.
             </p>
             <div className="flex gap-3">
               {socialLinks.map((social) => (
@@ -101,7 +115,9 @@ export function Footer() {
 
           {/* Links Columns */}
           <div>
-            <h4 className="font-semibold mb-5 text-background text-lg">Services</h4>
+            <h4 className="font-semibold mb-5 text-background text-lg">
+              Services
+            </h4>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
                 <li key={link.label}>
@@ -117,7 +133,9 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-5 text-background text-lg">Company</h4>
+            <h4 className="font-semibold mb-5 text-background text-lg">
+              Company
+            </h4>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
                 <li key={link.label}>
@@ -133,7 +151,9 @@ export function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-5 text-background text-lg">Resources</h4>
+            <h4 className="font-semibold mb-5 text-background text-lg">
+              Resources
+            </h4>
             <ul className="space-y-3">
               {footerLinks.resources.map((link) => (
                 <li key={link.label}>
@@ -151,7 +171,9 @@ export function Footer() {
 
           {/* Community Column */}
           <div>
-            <h4 className="font-semibold mb-5 text-background text-lg">Community</h4>
+            <h4 className="font-semibold mb-5 text-background text-lg">
+              Community
+            </h4>
             <div className="space-y-3">
               <a
                 href="https://t.me/101migrate"
@@ -209,10 +231,13 @@ export function Footer() {
           {/* Legal Disclaimer */}
           <div className="mt-6 pt-6 border-t border-background/10">
             <p className="text-xs text-background/40 text-center leading-relaxed max-w-5xl mx-auto">
-              <strong className="text-background/60">Disclaimer:</strong> 101Migrate is not a law firm and does not
-              provide legal advice. We do not represent clients before USCIS. Our services are educational, strategic,
-              and drafting support services only. Clients are responsible for filing petitions independently or through
-              a licensed U.S. immigration attorney. We make no guarantees regarding visa approvals or outcomes.
+              <strong className="text-background/60">Disclaimer:</strong>{" "}
+              101Migrate is not a law firm and does not provide legal advice. We
+              do not represent clients before USCIS. Our services are
+              educational, strategic, and drafting support services only.
+              Clients are responsible for filing petitions independently or
+              through a licensed U.S. immigration attorney. We make no
+              guarantees regarding visa approvals or outcomes.
             </p>
           </div>
 
@@ -232,5 +257,5 @@ export function Footer() {
         </div>
       </div>
     </footer>
-  )
+  );
 }
