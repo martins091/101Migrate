@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
@@ -30,6 +30,8 @@ export function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
   const pathname = usePathname();
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const menuButtonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,6 +44,54 @@ export function Navigation() {
   useEffect(() => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        isMobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target as Node) &&
+        menuButtonRef.current &&
+        !menuButtonRef.current.contains(event.target as Node)
+      ) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    // Prevent scrolling when mobile menu is open
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.body.style.overflow = "unset";
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close on Escape key press
+  useEffect(() => {
+    const handleEscapeKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && isMobileMenuOpen) {
+        setIsMobileMenuOpen(false);
+      }
+    };
+
+    document.addEventListener("keydown", handleEscapeKey);
+    return () => document.removeEventListener("keydown", handleEscapeKey);
+  }, [isMobileMenuOpen]);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const closeMobileMenu = () => {
+    setIsMobileMenuOpen(false);
+  };
 
   return (
     <>
@@ -87,6 +137,7 @@ export function Navigation() {
             <Link
               href="/"
               className="flex items-center gap-3 group relative z-10"
+              onClick={closeMobileMenu}
             >
               <Image
                 src="/images/phoenix-09-create-a-modern-company-logo-for-101migrate-incorpo-0-20-281-29.jpeg"
@@ -173,17 +224,19 @@ export function Navigation() {
 
             {/* Mobile Menu Button */}
             <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+              ref={menuButtonRef}
+              onClick={toggleMobileMenu}
               className={cn(
-                "lg:hidden p-3 rounded-xl transition-colors relative z-10",
+                "lg:hidden p-3 rounded-xl transition-colors relative z-50",
                 isScrolled
                   ? "hover:bg-muted text-foreground"
                   : "hover:bg-background/10 text-background",
               )}
-              aria-label="Toggle menu"
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={isMobileMenuOpen}
             >
               {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className="w-6 h-6 text-foreground" />
               ) : (
                 <Menu className="w-6 h-6" />
               )}
@@ -191,61 +244,84 @@ export function Navigation() {
           </div>
         </nav>
 
-        {/* Mobile Menu */}
+        {/* Mobile Menu Overlay */}
         <div
           className={cn(
-            "lg:hidden fixed inset-0 bg-background z-40 transition-all duration-500",
+            "lg:hidden fixed inset-0 z-40 transition-all duration-300",
             isMobileMenuOpen
               ? "opacity-100 visible"
               : "opacity-0 invisible pointer-events-none",
           )}
         >
-          <div className="container mx-auto px-6 pt-28 pb-8 flex flex-col h-full">
-            <div className="flex-1 flex flex-col gap-2">
-              {navLinks.map((link, index) => (
-                <div key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className={cn(
-                      "block py-4 text-2xl font-medium transition-all duration-300",
-                      isMobileMenuOpen
-                        ? "opacity-100 translate-x-0"
-                        : "opacity-0 -translate-x-4",
-                      pathname === link.href
-                        ? "text-primary"
-                        : "text-foreground/80",
+          {/* Backdrop */}
+          <div
+            className="absolute inset-0 bg-black/50 backdrop-blur-sm"
+            onClick={closeMobileMenu}
+            aria-hidden="true"
+          />
+
+          {/* Menu Panel */}
+          <div
+            ref={mobileMenuRef}
+            className={cn(
+              "absolute top-0 right-0 h-full w-full max-w-sm bg-background shadow-xl transition-transform duration-300 ease-out z-50",
+              isMobileMenuOpen ? "translate-x-0" : "translate-x-full",
+            )}
+          >
+            <div className="container mx-auto px-6 pt-28 pb-8 flex flex-col h-full overflow-y-auto">
+              <div className="flex-1 flex flex-col gap-2">
+                {navLinks.map((link, index) => (
+                  <div key={link.href}>
+                    <Link
+                      href={link.href}
+                      onClick={closeMobileMenu}
+                      className={cn(
+                        "block py-4 text-2xl font-medium transition-all duration-300",
+                        isMobileMenuOpen
+                          ? "opacity-100 translate-x-0"
+                          : "opacity-0 -translate-x-4",
+                        pathname === link.href
+                          ? "text-primary"
+                          : "text-foreground/80",
+                      )}
+                      style={{ transitionDelay: `${index * 50}ms` }}
+                    >
+                      {link.label}
+                    </Link>
+                    {link.children && (
+                      <div className="pl-6 flex flex-col gap-1">
+                        {link.children.map((child, childIndex) => (
+                          <Link
+                            key={child.href}
+                            href={child.href}
+                            onClick={closeMobileMenu}
+                            className={cn(
+                              "py-2 text-muted-foreground hover:text-primary transition-colors",
+                              isMobileMenuOpen
+                                ? "opacity-100 translate-x-0"
+                                : "opacity-0 -translate-x-4",
+                            )}
+                            style={{
+                              transitionDelay: `${index * 50 + childIndex * 30 + 100}ms`,
+                            }}
+                          >
+                            {child.label}
+                          </Link>
+                        ))}
+                      </div>
                     )}
-                    style={{ transitionDelay: `${index * 50}ms` }}
-                  >
-                    {link.label}
-                  </Link>
-                  {link.children && (
-                    <div className="pl-6 flex flex-col gap-1">
-                      {link.children.map((child) => (
-                        <Link
-                          key={child.href}
-                          href={child.href}
-                          onClick={() => setIsMobileMenuOpen(false)}
-                          className="py-2 text-muted-foreground hover:text-primary transition-colors"
-                        >
-                          {child.label}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              ))}
+                  </div>
+                ))}
+              </div>
+              <Button
+                asChild
+                size="lg"
+                className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full w-full mt-6"
+                onClick={closeMobileMenu}
+              >
+                <Link href="/booking">Book Consultation</Link>
+              </Button>
             </div>
-            <Button
-              asChild
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground rounded-full w-full"
-            >
-              <Link href="/booking" onClick={() => setIsMobileMenuOpen(false)}>
-                Book Consultation
-              </Link>
-            </Button>
           </div>
         </div>
       </header>
