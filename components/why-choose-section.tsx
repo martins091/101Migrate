@@ -33,7 +33,7 @@ const features = [
 
 const stats = [
   { value: 500, suffix: "+", label: "Consultations" },
-  { value: 300, suffix: "+", label: "Approved Cases" },
+  // { value: 300, suffix: "+", label: "Approved Cases" },
   { value: 20, suffix: "+", label: "Countries" },
   { value: 98, suffix: "%", label: "Success Rate" },
 ]
@@ -82,7 +82,9 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   }, [isVisible, value])
 
   return (
-    <div ref={ref} className="text-4xl md:text-5xl font-bold text-primary">
+    // <div ref={ref} className="text-4xl md:text-5xl font-bold text-primary">
+      <div ref={ref} className="text-xl md:text-2xl font-semibold text-primary">
+
       {count}
       {suffix}
     </div>
@@ -110,18 +112,21 @@ export function WhyChooseSection() {
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-4">
                 <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
-                  <Image src="/happy-immigrant-family-receiving-visa-approval-cel.jpg" alt="Success Story" fill className="object-cover" />
+                  <Image src="/immigration/world-map.png" alt="World map showing global connections" fill className="object-cover" />
+                  {/*<Image src="/happy-immigrant-family-receiving-visa-approval-cel.jpg" alt="Success Story" fill className="object-cover" />*/}
                 </div>
                 <div className="relative aspect-square rounded-3xl overflow-hidden shadow-xl">
-                  <Image src="/professional-consultant-working-on-laptop-in-offic.jpg" alt="Expert Team" fill className="object-cover" />
+                  <Image src="/immigration/visa-approval.jpg" alt="Expert Team" fill className="object-cover" />
+                  {/*<Image src="/immigration/professional-consultant-working-on-laptop-in-offic.jpg" alt="Expert Team" fill className="object-cover" />*/}
                 </div>
               </div>
               <div className="space-y-4 pt-8">
                 <div className="relative aspect-square rounded-3xl overflow-hidden shadow-xl">
-                  <Image src="/diverse-group-of-professionals-celebrating-success.jpg" alt="Client Success" fill className="object-cover" />
+                  <Image src="/immigration/global-travelling-abstract.jpg" alt="Private Document With Folder" fill className="object-cover" />
+                  {/*<Image src="/diverse-group-of-professionals-celebrating-success.jpg" alt="Client Success" fill className="object-cover" />*/}
                 </div>
                 <div className="relative aspect-[3/4] rounded-3xl overflow-hidden shadow-2xl">
-                  <Image src="/professional-immigration-consultant-meeting-with-c.jpg" alt="Consultation" fill className="object-cover" />
+                  <Image src="/immigration/biometric-passport-visa.jpg" alt="Consultation" fill className="object-cover" />
                 </div>
               </div>
             </div>

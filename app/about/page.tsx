@@ -32,19 +32,19 @@ const team = [
   {
     name: "Sarah Johnson",
     role: "Founder & Lead Consultant",
-    image: "/team-member-woman-professional-headshot-corporate-.jpg",
+    image: "/glass-trophy.jpg",
     bio: "10+ years in immigration consulting with expertise in EB-1A and EB-2 NIW cases.",
   },
   {
     name: "Michael Chen",
     role: "Senior Immigration Strategist",
-    image: "/team-member-man-professional-headshot-corporate-as.jpg",
+    image: "/decorative-earth.jpg",
     bio: "Former USCIS analyst with deep knowledge of petition evaluation criteria.",
   },
   {
     name: "Dr. Priya Patel",
     role: "Research & Documentation Lead",
-    image: "/team-member-woman-professional-headshot-corporate-2.jpg",
+    image: "/statistical-documents-with-test-tubes.jpg",
     bio: "PhD holder specializing in crafting compelling narratives for academic professionals.",
   },
 ]
@@ -105,7 +105,7 @@ export default function AboutPage() {
                   <CheckCircle2 className="w-6 h-6 text-secondary" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold">20+</p>
+                  <p className="text-2xl font-bold">10+</p>
                   <p className="text-sm text-background/60">Countries</p>
                 </div>
               </div>
@@ -121,7 +121,7 @@ export default function AboutPage() {
             <div className="relative">
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/team-of-immigration-consultants-working-together-i.jpg"
+                  src="/scene-with-airplain.jpg"
                   alt="Our Mission"
                   fill
                   className="object-cover"

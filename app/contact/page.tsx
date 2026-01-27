@@ -18,12 +18,7 @@ const contactInfo = [
     value: "info@101migrate.com",
     description: "We respond within 24 hours",
   },
-  {
-    icon: Phone,
-    title: "Call Us",
-    value: "+1 (234) 567-890",
-    description: "Mon-Fri 9am-6pm EST",
-  },
+
   {
     icon: Clock,
     title: "Office Hours",
@@ -260,23 +255,6 @@ export default function ContactPage() {
               <div id="community" className="bg-muted/50 rounded-3xl p-8">
                 <h3 className="text-xl font-semibold mb-6">Join Our Community</h3>
                 <div className="space-y-4">
-                  <a
-                    href="https://t.me/101migrate"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-4 bg-card rounded-xl border border-border hover:border-secondary/50 transition-colors group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-[#0088cc]/10 flex items-center justify-center">
-                        <Send className="w-6 h-6 text-[#0088cc]" />
-                      </div>
-                      <div>
-                        <p className="font-semibold">Telegram Group</p>
-                        <p className="text-sm text-muted-foreground">300+ members</p>
-                      </div>
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-secondary group-hover:translate-x-1 transition-all" />
-                  </a>
 
                   <a
                     href="https://wa.me/1234567890"
@@ -296,23 +274,6 @@ export default function ContactPage() {
                     <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-secondary group-hover:translate-x-1 transition-all" />
                   </a>
                 </div>
-              </div>
-
-              {/* Quick Contact */}
-              <div className="bg-foreground text-background rounded-3xl p-8">
-                <h3 className="text-xl font-semibold mb-4">Prefer to Talk?</h3>
-                <p className="text-background/70 mb-6">
-                  Schedule a call with our team and let's discuss your immigration goals.
-                </p>
-                <Button
-                  asChild
-                  className="w-full bg-secondary hover:bg-secondary/90 text-foreground rounded-full group"
-                >
-                  <a href="tel:+1234567890">
-                    <Phone className="mr-2 w-5 h-5" />
-                    Call +1 (234) 567-890
-                  </a>
-                </Button>
               </div>
             </div>
           </div>

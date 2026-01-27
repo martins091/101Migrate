@@ -154,20 +154,6 @@ export function Footer() {
             <h4 className="font-semibold mb-5 text-background text-lg">Community</h4>
             <div className="space-y-3">
               <a
-                href="https://t.me/101migrate"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-xl bg-background/5 hover:bg-background/10 transition-colors group"
-              >
-                <div className="w-10 h-10 rounded-lg bg-[#0088cc]/20 flex items-center justify-center">
-                  <Send className="w-5 h-5 text-[#0088cc]" />
-                </div>
-                <div>
-                  <p className="font-medium text-sm">Telegram</p>
-                  <p className="text-xs text-background/50">Join Group</p>
-                </div>
-              </a>
-              <a
                 href="https://wa.me/2348012345678"
                 target="_blank"
                 rel="noopener noreferrer"

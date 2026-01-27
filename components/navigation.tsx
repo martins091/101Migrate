@@ -19,6 +19,8 @@ const navLinks = [
       { href: "/services#eb1a", label: "EB-1A Support" },
       { href: "/services#consultation", label: "Consultations" },
       { href: "/services#review", label: "Petition Review" },
+      { href: "/services#sample-eb1a", label: "Sample EB-1A Petition" },
+      { href: "/services#sample-eb2-niw", label: "Sample EB-2 NIW Petition" },
     ],
   },
   { href: "/resources", label: "Resources" },
@@ -49,10 +51,7 @@ export function Navigation() {
       <div className="hidden lg:block bg-foreground text-background py-2">
         <div className="container mx-auto px-6 lg:px-12 flex items-center justify-between text-sm">
           <div className="flex items-center gap-6">
-            <a href="tel:+2348012345678" className="flex items-center gap-2 hover:text-secondary transition-colors">
-              <Phone className="w-4 h-4" />
-              <span>+234 801 234 5678</span>
-            </a>
+
             <a
               href="mailto:info@101migrate.com"
               className="flex items-center gap-2 hover:text-secondary transition-colors"
@@ -62,7 +61,7 @@ export function Navigation() {
             </a>
           </div>
           <div className="flex items-center gap-4">
-            <span className="text-background/70">Trusted by 500+ Professionals Worldwide</span>
+            <span className="text-background/70">Trusted by 100+ Professionals Worldwide</span>
           </div>
         </div>
       </div>

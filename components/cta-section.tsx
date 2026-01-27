@@ -74,24 +74,6 @@ export function CTASection() {
         {/* Community Section */}
         <div className="grid md:grid-cols-2 gap-6 mt-8">
           <a
-            href="https://t.me/101migrate"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group flex items-center justify-between bg-card border border-border rounded-2xl p-6 hover:border-secondary/50 hover:shadow-lg transition-all duration-300"
-          >
-            <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-xl bg-[#0088cc]/10 flex items-center justify-center group-hover:bg-[#0088cc]/20 transition-colors">
-                <Send className="w-6 h-6 text-[#0088cc]" />
-              </div>
-              <div>
-                <h3 className="font-semibold text-lg mb-1">Join Telegram Community</h3>
-                <p className="text-muted-foreground text-sm">Connect with 300+ members</p>
-              </div>
-            </div>
-            <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-secondary group-hover:translate-x-1 transition-all" />
-          </a>
-
-          <a
             href="https://wa.me/1234567890"
             target="_blank"
             rel="noopener noreferrer"

@@ -42,8 +42,7 @@ const heroSlides = [
 
 const trustIndicators = [
   { value: "500+", label: "Successful Cases" },
-  { value: "20+", label: "Countries Served" },
-  { value: "98%", label: "Approval Rate" },
+  { value: "10+", label: "Countries Served" }
 ]
 
 export function HeroSection() {
@@ -211,7 +210,8 @@ export function HeroSection() {
                 )}
               >
                 <Image
-                  src="/african-professional-success-portrait.jpg"
+                  src="/immigration/insung-yoon-3wyIGmq1Juw-unsplash.jpg"
+                  // src="/african-professional-success-portrait.jpg"
                   alt="Success Story"
                   fill
                   className="object-cover"
@@ -226,7 +226,7 @@ export function HeroSection() {
                     </div>
                     <div>
                       <p className="text-background font-semibold">500+ Approved Cases</p>
-                      <p className="text-background/70 text-sm">Across 20+ Countries</p>
+                      <p className="text-background/70 text-sm">Across 10+ Countries</p>
                     </div>
                   </div>
                 </div>
