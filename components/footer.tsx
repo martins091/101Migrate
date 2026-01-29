@@ -7,6 +7,7 @@ import {
   Instagram,
   Youtube,
   Send,
+  MessageCircle,
   ArrowUpRight,
 } from "lucide-react";
 
@@ -166,6 +167,24 @@ export function Footer() {
                 </li>
               ))}
             </ul>
+
+            {/* WhatsApp Join Group */}
+            <div className="mt-6">
+              <a
+                href="https://chat.whatsapp.com/JMGsctcfScp4vRURr8FiIN?mode=gi_c"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-3 p-3 rounded-xl bg-background/5 hover:bg-background/10 transition-colors group"
+              >
+                <div className="w-10 h-10 rounded-lg bg-[#25D366]/20 flex items-center justify-center">
+                  <MessageCircle className="w-5 h-5 text-[#25D366]" />
+                </div>
+                <div>
+                  <p className="font-medium text-sm">WhatsApp</p>
+                  <p className="text-xs text-background/50">Join Group</p>
+                </div>
+              </a>
+            </div>
           </div>
         </div>
       </div>
