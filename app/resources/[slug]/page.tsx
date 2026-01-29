@@ -109,6 +109,56 @@ const guides = {
       "Filing best practices",
     ],
   },
+  "sample-eb1a-petition": {
+  title: "Sample EB-1A Petition",
+  description:
+    "Realistic sample EB-1A petition demonstrating proper structure, formatting, and evidence presentation for an extraordinary ability case.",
+  image: "/eb1a-visa-guide-document-with-american-flag-and-pa.jpg",
+  type: "Sample Petition",
+  pages: 30,
+  lastUpdated: "January 2026",
+  contents: [
+    "Cover Letter & Table of Contents",
+    "Petitioner & Beneficiary Information",
+    "Summary of Extraordinary Ability",
+    "Criterion-by-Criterion Legal Arguments",
+    "Exhibits & Supporting Evidence Index",
+    "Expert Opinion Letters",
+    "Final Legal Conclusion",
+  ],
+  highlights: [
+    "Shows professional petition formatting",
+    "Illustrates strong legal argument style",
+    "Helps understand petition flow",
+    "Great reference for self-petitioners",
+  ],
+},
+
+"sample-eb2-niw-petition": {
+  title: "Sample EB-2 NIW Petition",
+  description:
+    "Sample EB-2 NIW petition showing how to structure a strong proposed endeavor and satisfy the three-prong test.",
+  image: "/eb2-niw-visa-guide-document-with-professional-sett.jpg",
+  type: "Sample Petition",
+  pages: 34,
+  lastUpdated: "January 2026",
+  contents: [
+    "Cover Letter & Case Summary",
+    "Proposed Endeavor Explanation",
+    "Substantial Merit & National Importance",
+    "Well Positioned to Advance Endeavor",
+    "Balancing Test Argument",
+    "Evidence Index",
+    "Recommendation Letters",
+  ],
+  highlights: [
+    "Demonstrates Matter of Dhanasar framework",
+    "Strong national interest arguments",
+    "Clear logical flow",
+    "Useful for drafting your own NIW case",
+  ],
+},
+
 }
 
 export default async function ResourceDetailPage({ params }: { params: Promise<{ slug: string }> }) {

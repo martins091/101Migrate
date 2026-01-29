@@ -28,26 +28,6 @@ const values = [
   },
 ]
 
-const team = [
-  {
-    name: "Sarah Johnson",
-    role: "Founder & Lead Consultant",
-    image: "/team-member-woman-professional-headshot-corporate-.jpg",
-    bio: "10+ years in immigration consulting with expertise in EB-1A and EB-2 NIW cases.",
-  },
-  {
-    name: "Michael Chen",
-    role: "Senior Immigration Strategist",
-    image: "/team-member-man-professional-headshot-corporate-as.jpg",
-    bio: "Former USCIS analyst with deep knowledge of petition evaluation criteria.",
-  },
-  {
-    name: "Dr. Priya Patel",
-    role: "Research & Documentation Lead",
-    image: "/team-member-woman-professional-headshot-corporate-2.jpg",
-    bio: "PhD holder specializing in crafting compelling narratives for academic professionals.",
-  },
-]
 
 const milestones = [
   { year: "2018", event: "101Migrate Founded", description: "Started with a mission to simplify immigration" },
@@ -87,7 +67,7 @@ export default function AboutPage() {
                   <CheckCircle2 className="w-6 h-6 text-secondary" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold">500+</p>
+                  <p className="text-2xl font-bold">100+</p>
                   <p className="text-sm text-background/60">Consultations</p>
                 </div>
               </div>
@@ -95,17 +75,14 @@ export default function AboutPage() {
                 <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center">
                   <CheckCircle2 className="w-6 h-6 text-secondary" />
                 </div>
-                <div>
-                  <p className="text-2xl font-bold">300+</p>
-                  <p className="text-sm text-background/60">Approved Cases</p>
-                </div>
+               
               </div>
               <div className="flex items-center gap-3">
                 <div className="w-12 h-12 rounded-full bg-secondary/20 flex items-center justify-center">
                   <CheckCircle2 className="w-6 h-6 text-secondary" />
                 </div>
                 <div>
-                  <p className="text-2xl font-bold">20+</p>
+                  <p className="text-2xl font-bold">10+</p>
                   <p className="text-sm text-background/60">Countries</p>
                 </div>
               </div>
@@ -121,7 +98,7 @@ export default function AboutPage() {
             <div className="relative">
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="/team-of-immigration-consultants-working-together-i.jpg"
+                  src="/man.jpg"
                   alt="Our Mission"
                   fill
                   className="object-cover"
@@ -193,44 +170,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section id="team" className="py-24 md:py-32 bg-background">
-        <div className="container mx-auto px-6 lg:px-12">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <span className="inline-block text-secondary font-semibold tracking-widest uppercase text-sm mb-4">
-              Our Team
-            </span>
-            <h2 className="text-4xl md:text-5xl font-serif font-bold leading-tight mb-6">
-              Meet the Experts <span className="text-primary">Behind Your Success</span>
-            </h2>
-            <p className="text-lg text-muted-foreground">
-              Our team combines deep immigration expertise with a passion for helping professionals achieve their
-              dreams.
-            </p>
-          </div>
-
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {team.map((member) => (
-              <div key={member.name} className="group">
-                <div className="relative aspect-[3/4] rounded-3xl overflow-hidden mb-6">
-                  <Image
-                    src={member.image || "/placeholder.svg"}
-                    alt={member.name}
-                    fill
-                    className="object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-foreground/80 via-transparent to-transparent" />
-                  <div className="absolute bottom-0 left-0 right-0 p-6">
-                    <h3 className="text-xl font-semibold text-background">{member.name}</h3>
-                    <p className="text-secondary">{member.role}</p>
-                  </div>
-                </div>
-                <p className="text-muted-foreground">{member.bio}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+  
 
       {/* Timeline Section */}
       <section className="py-24 md:py-32 bg-foreground text-background">

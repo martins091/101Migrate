@@ -22,7 +22,7 @@ const services = [
       "Evidence organization",
       "Complete petition drafting",
     ],
-    image: "/professional-reviewing-immigration-documents-in-mo.jpg",
+    image: "/eb2-niw-visa-guide-document-with-professional-sett.jpg",
     price: "From $2,500",
   },
   {
@@ -39,7 +39,7 @@ const services = [
       "Reference letter drafting",
       "Petition preparation",
     ],
-    image: "/award-winning-professional-with-achievements-and-t.jpg",
+    image: "/eb1a-visa-guide-document-with-american-flag-and-pa.jpg",
     price: "From $3,000",
   },
   {
@@ -56,7 +56,7 @@ const services = [
       "Evidence gap analysis",
       "Detailed improvement plan",
     ],
-    image: "/professional-consultant-reviewing-documents-with-m.jpg",
+    image: "/man.jpg",
     price: "From $500",
   },
   {
@@ -67,7 +67,7 @@ const services = [
     description:
       "Book personalized consultation sessions with our experts to evaluate your profile, discuss options, and develop a winning strategy for your immigration case.",
     features: ["Profile evaluation", "Pathway recommendation", "Timeline planning", "Evidence strategy", "Q&A session"],
-    image: "/professional-consultation-meeting-in-luxury-office.jpg",
+    image: "/hands.jpg",
     price: "$200/hour",
   },
 ]

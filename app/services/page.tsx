@@ -33,7 +33,7 @@ const services = [
       "Strategic Pathway Mapping",
       "Personalized Roadmap Document",
     ],
-    image: "/one-on-one-consultation-session-professional-meeti.jpg",
+    image: "/hands.jpg",
   },
   {
     id: "eb2-niw",
@@ -52,7 +52,7 @@ const services = [
       "Complete Petition Drafting",
       "Recommendation Letter Templates",
     ],
-    image: "/eb2-niw-petition-documents-being-reviewed-by-profe.jpg",
+    image: "/eb2-niw-visa-guide-document-with-professional-sett.jpg",
   },
   {
     id: "eb1a",
@@ -71,7 +71,7 @@ const services = [
       "Comprehensive Petition Preparation",
       "National/International Recognition Strategy",
     ],
-    image: "/eb1a-extraordinary-ability-visa-documents-with-awa.jpg",
+    image: "/eb1a-visa-guide-document-with-american-flag-and-pa.jpg",
   },
   {
     id: "review",
@@ -89,7 +89,7 @@ const services = [
       "Evidence Gap Analysis",
       "Detailed Improvement Report",
     ],
-    image: "/petition-review-service-documents-with-feedback-no.jpg",
+    image: "/man.jpg",
   },
 ]
 

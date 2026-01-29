@@ -7,7 +7,6 @@ import {
   Instagram,
   Youtube,
   Send,
-  MessageCircle,
   ArrowUpRight,
 } from "lucide-react";
 
@@ -82,7 +81,7 @@ export function Footer() {
 
       {/* Main Footer */}
       <div className="container mx-auto px-6 lg:px-12 py-16 md:py-20">
-        <div className="grid md:grid-cols-2 lg:grid-cols-6 gap-12 lg:gap-8">
+        <div className="grid md:grid-cols-2 lg:grid-cols-5 gap-12 lg:gap-8">
           {/* Brand Column */}
           <div className="lg:col-span-2">
             <Link href="/" className="inline-block mb-6">
@@ -167,43 +166,6 @@ export function Footer() {
                 </li>
               ))}
             </ul>
-          </div>
-
-          {/* Community Column */}
-          <div>
-            <h4 className="font-semibold mb-5 text-background text-lg">
-              Community
-            </h4>
-            <div className="space-y-3">
-              <a
-                href="https://t.me/101migrate"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-xl bg-background/5 hover:bg-background/10 transition-colors group"
-              >
-                <div className="w-10 h-10 rounded-lg bg-[#0088cc]/20 flex items-center justify-center">
-                  <Send className="w-5 h-5 text-[#0088cc]" />
-                </div>
-                <div>
-                  <p className="font-medium text-sm">Telegram</p>
-                  <p className="text-xs text-background/50">Join Group</p>
-                </div>
-              </a>
-              <a
-                href="https://wa.me/2348012345678"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 p-3 rounded-xl bg-background/5 hover:bg-background/10 transition-colors group"
-              >
-                <div className="w-10 h-10 rounded-lg bg-[#25D366]/20 flex items-center justify-center">
-                  <MessageCircle className="w-5 h-5 text-[#25D366]" />
-                </div>
-                <div>
-                  <p className="font-medium text-sm">WhatsApp</p>
-                  <p className="text-xs text-background/50">Join Group</p>
-                </div>
-              </a>
-            </div>
           </div>
         </div>
       </div>

@@ -6,7 +6,7 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import Image from "next/image"
 import Link from "next/link"
-import { Send, MapPin, Mail, Clock, Phone, MessageCircle, ArrowRight, CheckCircle2 } from "lucide-react"
+import { Send, MapPin, Mail, Clock, MessageCircle, ArrowRight, CheckCircle2 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
@@ -17,12 +17,6 @@ const contactInfo = [
     title: "Email Us",
     value: "info@101migrate.com",
     description: "We respond within 24 hours",
-  },
-  {
-    icon: Phone,
-    title: "Call Us",
-    value: "+1 (234) 567-890",
-    description: "Mon-Fri 9am-6pm EST",
   },
   {
     icon: Clock,
@@ -81,7 +75,7 @@ export default function ContactPage() {
       {/* Contact Info Cards */}
       <section className="py-12 bg-background">
         <div className="container mx-auto px-6 lg:px-12">
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 -mt-20 relative z-20">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 -mt-20 relative z-20">
             {contactInfo.map((info) => (
               <div
                 key={info.title}
@@ -140,6 +134,7 @@ export default function ContactPage() {
                         <Input id="lastName" required placeholder="Doe" className="h-12 rounded-xl bg-muted/50" />
                       </div>
                     </div>
+
                     <div>
                       <label htmlFor="email" className="block text-sm font-medium mb-2">
                         Email Address *
@@ -152,17 +147,7 @@ export default function ContactPage() {
                         className="h-12 rounded-xl bg-muted/50"
                       />
                     </div>
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium mb-2">
-                        Phone Number
-                      </label>
-                      <Input
-                        id="phone"
-                        type="tel"
-                        placeholder="+1 (234) 567-890"
-                        className="h-12 rounded-xl bg-muted/50"
-                      />
-                    </div>
+
                     <div>
                       <label htmlFor="country" className="block text-sm font-medium mb-2">
                         Country *
@@ -184,6 +169,7 @@ export default function ContactPage() {
                         <option value="other">Other</option>
                       </select>
                     </div>
+
                     <div>
                       <label htmlFor="service" className="block text-sm font-medium mb-2">
                         Service Interest *
@@ -202,6 +188,7 @@ export default function ContactPage() {
                         <option value="other">Other</option>
                       </select>
                     </div>
+
                     <div>
                       <label htmlFor="message" className="block text-sm font-medium mb-2">
                         Message *
@@ -214,6 +201,7 @@ export default function ContactPage() {
                         className="rounded-xl bg-muted/50 resize-none"
                       />
                     </div>
+
                     <Button
                       type="submit"
                       disabled={isSubmitting}
@@ -238,7 +226,7 @@ export default function ContactPage() {
             <div className="space-y-8">
               <div className="relative aspect-[4/3] rounded-3xl overflow-hidden">
                 <Image
-                  src="/contact/consultation-meeting.jpg"
+                  src="/hands.jpg"
                   alt="Book a Consultation"
                   fill
                   className="object-cover"
@@ -254,65 +242,6 @@ export default function ContactPage() {
                     </Link>
                   </Button>
                 </div>
-              </div>
-
-              {/* Community Section */}
-              <div id="community" className="bg-muted/50 rounded-3xl p-8">
-                <h3 className="text-xl font-semibold mb-6">Join Our Community</h3>
-                <div className="space-y-4">
-                  <a
-                    href="https://t.me/101migrate"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-4 bg-card rounded-xl border border-border hover:border-secondary/50 transition-colors group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-[#0088cc]/10 flex items-center justify-center">
-                        <Send className="w-6 h-6 text-[#0088cc]" />
-                      </div>
-                      <div>
-                        <p className="font-semibold">Telegram Group</p>
-                        <p className="text-sm text-muted-foreground">300+ members</p>
-                      </div>
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-secondary group-hover:translate-x-1 transition-all" />
-                  </a>
-
-                  <a
-                    href="https://wa.me/1234567890"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center justify-between p-4 bg-card rounded-xl border border-border hover:border-secondary/50 transition-colors group"
-                  >
-                    <div className="flex items-center gap-4">
-                      <div className="w-12 h-12 rounded-xl bg-[#25D366]/10 flex items-center justify-center">
-                        <MessageCircle className="w-6 h-6 text-[#25D366]" />
-                      </div>
-                      <div>
-                        <p className="font-semibold">WhatsApp Group</p>
-                        <p className="text-sm text-muted-foreground">Get instant support</p>
-                      </div>
-                    </div>
-                    <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-secondary group-hover:translate-x-1 transition-all" />
-                  </a>
-                </div>
-              </div>
-
-              {/* Quick Contact */}
-              <div className="bg-foreground text-background rounded-3xl p-8">
-                <h3 className="text-xl font-semibold mb-4">Prefer to Talk?</h3>
-                <p className="text-background/70 mb-6">
-                  Schedule a call with our team and let's discuss your immigration goals.
-                </p>
-                <Button
-                  asChild
-                  className="w-full bg-secondary hover:bg-secondary/90 text-foreground rounded-full group"
-                >
-                  <a href="tel:+1234567890">
-                    <Phone className="mr-2 w-5 h-5" />
-                    Call +1 (234) 567-890
-                  </a>
-                </Button>
               </div>
             </div>
           </div>

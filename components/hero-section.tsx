@@ -15,7 +15,7 @@ const heroSlides = [
     subtitle: "Expert EB-2 NIW & EB-1A Support",
     description:
       "Join 500+ African professionals who have successfully navigated their U.S. immigration journey with our strategic guidance and expert support.",
-    image: "/african-professional-business-success.jpg",
+    image: "/modern-city-skyline-new-york-at-golden-hour-with-.jpg",
     cta: "Start Your Journey",
   },
   {
@@ -25,7 +25,7 @@ const heroSlides = [
     subtitle: "Comprehensive Petition Support",
     description:
       "From initial evaluation to petition submission, we provide end-to-end support that maximizes your chances of approval.",
-    image: "/african-team-collaboration-meeting.jpg",
+    image: "/flight.jpg",
     cta: "Explore Services",
   },
   {
@@ -35,15 +35,14 @@ const heroSlides = [
     subtitle: "Personalized Consultation",
     description:
       "Work directly with immigration experts who understand your unique profile and craft strategies tailored to your strengths.",
-    image: "/african-consultant-client-meeting.jpg",
+    image: "/america.jpg",
     cta: "Book Consultation",
   },
 ]
 
 const trustIndicators = [
-  { value: "500+", label: "Successful Cases" },
-  { value: "20+", label: "Countries Served" },
-  { value: "98%", label: "Approval Rate" },
+  { value: "100+", label: "Successful Cases" },
+  { value: "10+", label: "Countries Served" },
 ]
 
 export function HeroSection() {
@@ -211,7 +210,7 @@ export function HeroSection() {
                 )}
               >
                 <Image
-                  src="/african-professional-success-portrait.jpg"
+                  src="/flag.png"
                   alt="Success Story"
                   fill
                   className="object-cover"
@@ -225,8 +224,8 @@ export function HeroSection() {
                       <CheckCircle2 className="w-6 h-6 text-foreground" />
                     </div>
                     <div>
-                      <p className="text-background font-semibold">500+ Approved Cases</p>
-                      <p className="text-background/70 text-sm">Across 20+ Countries</p>
+                      <p className="text-background font-semibold"> Approved Cases</p>
+                      <p className="text-background/70 text-sm">Across different Countries</p>
                     </div>
                   </div>
                 </div>

@@ -49,6 +49,29 @@ const guides = [
     image: "/resources/evidence-checklist.jpg",
     downloadable: true,
   },
+  {
+    id: 5,
+    slug: "sample-eb1a-petition",
+    type: "Sample Petition",
+    icon: FileText,
+    title: "Sample EB-1A Petition",
+    description:
+      "Realistic sample EB-1A petition illustrating structure, formatting, and evidence presentation.",
+    image: "/eb1a-visa-guide-document-with-american-flag-and-pa.jpg",
+    downloadable: true,
+  },
+  {
+    id: 6,
+    slug: "sample-eb2-niw-petition",
+    type: "Sample Petition",
+    icon: FileText,
+    title: "Sample EB-2 NIW Petition",
+    description:
+      "Sample EB-2 NIW petition showing strong proposed endeavor framing and three-prong test arguments.",
+    image: "/eb2-niw-visa-guide-document-with-professional-sett.jpg",
+    downloadable: true,
+  },
+
 ]
 
 const webinars = [
@@ -59,6 +82,7 @@ const webinars = [
     time: "11:00 AM CST",
     description: "Live webinar covering the latest NIW requirements and strategies for success.",
     image: "/resources/webinar-niw.jpg",
+    videoUrl: "https://www.youtube.com/embed/5tvapuyboRQ",
   },
   {
     slug: "eb1a-criteria-deep-dive",
@@ -67,8 +91,10 @@ const webinars = [
     time: "2:00 PM EST",
     description: "Detailed breakdown of each EB-1A criterion with real case examples.",
     image: "/resources/webinar-eb1a.jpg",
+    videoUrl: "https://www.youtube.com/embed/uKphTFbcBtc",
   },
 ]
+
 
 const blogPosts = [
   {
@@ -203,13 +229,16 @@ export default function ResourcesPage() {
                 className="group bg-card rounded-3xl overflow-hidden border border-border hover:shadow-xl transition-all duration-300"
               >
                 <div className="relative aspect-video">
-                  <Image src={webinar.image || "/placeholder.svg"} alt={webinar.title} fill className="object-cover" />
-                  <div className="absolute inset-0 bg-foreground/40 flex items-center justify-center group-hover:bg-foreground/50 transition-colors">
-                    <div className="w-16 h-16 rounded-full bg-primary flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <Play className="w-6 h-6 text-primary-foreground fill-current ml-1" />
-                    </div>
-                  </div>
+                  <iframe
+                    src={webinar.videoUrl}
+                    title={webinar.title}
+                    className="w-full h-full"
+                    frameBorder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                  />
                 </div>
+
                 <div className="p-8">
                   <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                     <div className="flex items-center gap-1">
