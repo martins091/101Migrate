@@ -36,14 +36,14 @@ const consultationTypes = [
     id: "strategy-session",
     name: "Strategy Session",
     duration: "60 minutes",
-    price: 150,
+    price: 200,
     description: "In-depth strategy discussion and roadmap planning",
   },
   {
     id: "comprehensive-review",
     name: "Comprehensive Review",
     duration: "90 minutes",
-    price: 250,
+    price: 300,
     description: "Complete profile analysis with detailed action plan",
   },
 ]
