@@ -251,10 +251,6 @@ export default function ResourcesPage() {
                     {webinar.title}
                   </h3>
                   <p className="text-muted-foreground mb-6">{webinar.description}</p>
-                  <div className="inline-flex items-center text-secondary font-medium">
-                    Learn More & Register
-                    <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </div>
                 </div>
               </Link>
             ))}
@@ -306,10 +302,6 @@ export default function ResourcesPage() {
                     {post.title}
                   </h3>
                   <p className="text-muted-foreground mb-4">{post.excerpt}</p>
-                  <span className="inline-flex items-center text-secondary font-medium group-hover:underline">
-                    Read More
-                    <ArrowRight className="ml-1 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                  </span>
                 </div>
               </Link>
             ))}
