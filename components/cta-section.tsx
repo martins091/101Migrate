@@ -73,7 +73,7 @@ export function CTASection() {
 
         {/* Community Section */}
         <div className="grid md:grid-cols-2 gap-6 mt-8">
-          <a
+          {/* <a
             href="https://t.me/101migrate"
             target="_blank"
             rel="noopener noreferrer"
@@ -89,10 +89,10 @@ export function CTASection() {
               </div>
             </div>
             <ArrowRight className="w-5 h-5 text-muted-foreground group-hover:text-secondary group-hover:translate-x-1 transition-all" />
-          </a>
+          </a> */}
 
           <a
-            href="https://wa.me/1234567890"
+            href="https://chat.whatsapp.com/JMGsctcfScp4vRURr8FiIN?mode=gi_c"
             target="_blank"
             rel="noopener noreferrer"
             className="group flex items-center justify-between bg-card border border-border rounded-2xl p-6 hover:border-secondary/50 hover:shadow-lg transition-all duration-300"

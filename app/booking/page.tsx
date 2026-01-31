@@ -7,6 +7,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
+import Script from "next/script"
 import {
   Calendar,
   Clock,
@@ -115,11 +116,306 @@ export default function BookingPage() {
     visaType: "",
     message: "",
   })
+  const [isProcessing, setIsProcessing] = useState(false)
 
   const calendarDays = generateCalendarDays(currentYear, currentMonth)
   const today = new Date()
 
   const selectedConsultation = consultationTypes.find((t) => t.id === selectedType)
+
+ // Function to send emails
+const sendEmailNotification = async (paymentReference: string) => {
+  try {
+    // Format the date for display
+    const formattedDate = selectedDate?.toLocaleDateString('en-US', {
+      weekday: 'long',
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric'
+    });
+
+    // Format date for admin (simpler format)
+    const adminFormattedDate = selectedDate?.toLocaleDateString('en-US', {
+      year: 'numeric',
+      month: 'short',
+      day: 'numeric'
+    });
+
+    // Send to customer
+    await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: formData.email,
+        subject: `Payment Confirmation - ${selectedConsultation?.name}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+            <h1 style="color: #10B981;">✅ Payment Confirmed!</h1>
+            
+            <p>Dear <strong>${formData.firstName} ${formData.lastName}</strong>,</p>
+            
+            <p>Thank you for your payment! Your <strong>${selectedConsultation?.name}</strong> has been successfully booked.</p>
+            
+            <div style="background-color: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #10B981;">
+              <h2 style="color: #374151; margin-top: 0;">📅 Your Consultation Details:</h2>
+              
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 8px 0; color: #6B7280;"><strong>Service:</strong></td>
+                  <td style="padding: 8px 0;">${selectedConsultation?.name}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #6B7280;"><strong>Date:</strong></td>
+                  <td style="padding: 8px 0;"><strong>${formattedDate || 'Not specified'}</strong></td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #6B7280;"><strong>Time:</strong></td>
+                  <td style="padding: 8px 0;"><strong>${selectedTime || 'Not specified'}</strong> (Eastern Time)</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #6B7280;"><strong>Duration:</strong></td>
+                  <td style="padding: 8px 0;">${selectedConsultation?.duration}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #6B7280;"><strong>Amount Paid:</strong></td>
+                  <td style="padding: 8px 0;">$${selectedConsultation?.price} USD</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #6B7280;"><strong>Payment Reference:</strong></td>
+                  <td style="padding: 8px 0; font-family: monospace;">${paymentReference}</td>
+                </tr>
+              </table>
+            </div>
+            
+            <h3>📝 Next Steps:</h3>
+            <ol style="color: #4B5563;">
+              <li>Our team will confirm your booking within 24 hours</li>
+              <li>You'll receive a calendar invitation with the Zoom/Google Meet link</li>
+              <li>Please prepare any questions or documents you'd like to discuss</li>
+            </ol>
+            
+            <div style="background-color: #DBEAFE; padding: 15px; border-radius: 6px; margin: 20px 0;">
+              <p style="margin: 0;"><strong>⚠️ Important:</strong> Please mark your calendar for:</p>
+              <p style="margin: 8px 0 0 0; font-size: 18px; font-weight: bold;">
+                ${formattedDate || 'Date not set'} at ${selectedTime || 'Time not set'} (Eastern Time)
+              </p>
+            </div>
+            
+            <p>If you need to reschedule or have any questions, please reply to this email.</p>
+            
+            <p style="color: #6B7280;">Best regards,<br>
+            <strong>The Immigration Consultation Team</strong></p>
+            
+            <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 30px 0;">
+            
+            <p style="color: #9CA3AF; font-size: 12px;">
+              This is an automated message. Please do not reply directly to this email.<br>
+              If you have questions, contact us at: support@yourdomain.com
+            </p>
+          </div>
+        `,
+      }),
+    })
+
+    // Send to admin
+    await fetch('/api/send-email', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        to: process.env.ADMIN_EMAIL || 'admin@yourdomain.com',
+        subject: `📅 NEW BOOKING: ${selectedConsultation?.name} - ${formData.firstName} ${formData.lastName}`,
+        html: `
+          <div style="font-family: Arial, sans-serif; max-width: 700px; margin: 0 auto;">
+            <h1 style="color: #1E40AF;">💰 NEW PAYMENT RECEIVED</h1>
+            
+            <div style="background-color: #EFF6FF; padding: 25px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #1E40AF;">
+              <h2 style="color: #1E40AF; margin-top: 0;">👤 Customer Information</h2>
+              
+              <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
+                <tr>
+                  <td style="padding: 8px 0; width: 150px; color: #4B5563;"><strong>Full Name:</strong></td>
+                  <td style="padding: 8px 0;">${formData.firstName} ${formData.lastName}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #4B5563;"><strong>Email:</strong></td>
+                  <td style="padding: 8px 0;"><a href="mailto:${formData.email}">${formData.email}</a></td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #4B5563;"><strong>Phone:</strong></td>
+                  <td style="padding: 8px 0;">${formData.phone}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #4B5563;"><strong>Occupation:</strong></td>
+                  <td style="padding: 8px 0;">${formData.occupation || 'Not provided'}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #4B5563;"><strong>Country:</strong></td>
+                  <td style="padding: 8px 0;">${formData.country || 'Not provided'}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 8px 0; color: #4B5563;"><strong>Visa Interest:</strong></td>
+                  <td style="padding: 8px 0;">${formData.visaType || 'Not specified'}</td>
+                </tr>
+              </table>
+              
+              ${formData.message ? `
+                <h3 style="color: #4B5563;">📝 Additional Notes from Customer:</h3>
+                <div style="background-color: white; padding: 15px; border-radius: 6px; margin: 10px 0; border: 1px solid #E5E7EB;">
+                  <p style="margin: 0; font-style: italic;">"${formData.message}"</p>
+                </div>
+              ` : ''}
+            </div>
+            
+            <div style="background-color: #FEF3C7; padding: 25px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #D97706;">
+              <h2 style="color: #92400E; margin-top: 0;">📅 BOOKING DETAILS</h2>
+              
+              <table style="width: 100%; border-collapse: collapse;">
+                <tr>
+                  <td style="padding: 10px 0; width: 150px; color: #92400E;"><strong>Service:</strong></td>
+                  <td style="padding: 10px 0; font-weight: bold;">${selectedConsultation?.name}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; color: #92400E;"><strong>Date:</strong></td>
+                  <td style="padding: 10px 0;">
+                    <span style="background-color: #FDE68A; padding: 4px 8px; border-radius: 4px; font-weight: bold;">
+                      ${formattedDate || 'Date not set'}
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; color: #92400E;"><strong>Time:</strong></td>
+                  <td style="padding: 10px 0;">
+                    <span style="background-color: #FDE68A; padding: 4px 8px; border-radius: 4px; font-weight: bold;">
+                      ${selectedTime || 'Time not set'} EST
+                    </span>
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; color: #92400E;"><strong>Duration:</strong></td>
+                  <td style="padding: 10px 0;">${selectedConsultation?.duration}</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; color: #92400E;"><strong>Amount:</strong></td>
+                  <td style="padding: 10px 0; font-size: 18px; color: #065F46; font-weight: bold;">
+                    $${selectedConsultation?.price} USD
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 0; color: #92400E;"><strong>Payment Ref:</strong></td>
+                  <td style="padding: 10px 0; font-family: monospace; background-color: #F3F4F6; padding: 6px; border-radius: 4px;">
+                    ${paymentReference}
+                  </td>
+                </tr>
+              </table>
+            </div>
+            
+            <div style="background-color: #D1FAE5; padding: 20px; border-radius: 8px; margin: 20px 0; border-left: 4px solid #10B981;">
+              <h2 style="color: #065F46; margin-top: 0;">✅ ACTION REQUIRED</h2>
+              <ol>
+                <li><strong>Schedule the consultation</strong> in your calendar</li>
+                <li><strong>Send calendar invitation</strong> to ${formData.email}</li>
+                <li><strong>Include Zoom/Google Meet link</strong> in the invitation</li>
+                <li><strong>Confirm with customer</strong> via email</li>
+              </ol>
+              
+              <div style="margin-top: 15px;">
+                <a href="https://calendar.google.com/calendar/render?action=TEMPLATE&text=Consultation+with+${encodeURIComponent(formData.firstName + ' ' + formData.lastName)}&details=${encodeURIComponent(`Consultation Type: ${selectedConsultation?.name}\nClient: ${formData.firstName} ${formData.lastName}\nEmail: ${formData.email}\nPhone: ${formData.phone}\nVisa Interest: ${formData.visaType || 'Not specified'}`)}&location=Zoom/Google+Meet&dates=${selectedDate ? selectedDate.toISOString().replace(/-|:|\.\d+/g, '') : ''}" 
+                   style="background-color: #10B981; color: white; padding: 10px 20px; text-decoration: none; border-radius: 6px; display: inline-block;">
+                  📅 Add to Google Calendar
+                </a>
+              </div>
+            </div>
+            
+            <hr style="border: none; border-top: 1px solid #E5E7EB; margin: 30px 0;">
+            
+            <p style="color: #6B7280; font-size: 14px;">
+              This booking was created on ${new Date().toLocaleString()} via the website booking system.
+            </p>
+          </div>
+        `,
+        adminNotification: true,
+      }),
+    })
+
+  } catch (error) {
+    console.error('Failed to send email:', error)
+    // Don't alert the user - just log it
+  }
+}
+
+// Paystack payment function - FIXED VERSION
+const payWithPaystack = () => { // Remove async here
+  if (!selectedConsultation || !formData.email) {
+    alert("Missing booking or email information");
+    return;
+  }
+
+  // Check if Paystack key exists
+  const paystackKey = process.env.NEXT_PUBLIC_PAYSTACK_PUBLIC_KEY;
+  
+  if (!paystackKey) {
+    alert("Payment system is not configured. Please contact support.");
+    return;
+  }
+
+  // Validate key format
+  if (!paystackKey.startsWith('pk_')) {
+    alert("Invalid payment configuration. Please contact support.");
+    return;
+  }
+
+  setIsProcessing(true);
+
+  // Create the callback function separately (NOT async)
+  const paymentCallback = function (response: any) {
+    console.log("Payment success callback triggered:", response);
+
+    // Handle email sending after payment
+    sendEmailNotification(response.reference)
+      .then(() => {
+        alert("✅ Payment successful! Check your email for confirmation.");
+      })
+      .catch((error) => {
+        console.error("Email error:", error);
+        alert("✅ Payment successful! (Email confirmation may be delayed)");
+      })
+      .finally(() => {
+        setIsProcessing(false);
+      });
+  };
+
+  // Create onClose function
+  const paymentOnClose = function () {
+    console.log("Payment window closed");
+    alert("Payment cancelled. You can try again.");
+    setIsProcessing(false);
+  };
+
+  try {
+    const handler = (window as any).PaystackPop.setup({
+      key: paystackKey,
+      email: formData.email,
+      amount: selectedConsultation.price * 100,
+      currency: "USD",
+      ref: `booking_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
+      metadata: {
+        customer_name: `${formData.firstName} ${formData.lastName}`,
+        customer_phone: formData.phone,
+        service: selectedConsultation.name,
+        booking_date: selectedDate?.toISOString(),
+        booking_time: selectedTime,
+      },
+      callback: paymentCallback, // Pass the function reference
+      onClose: paymentOnClose,   // Pass the function reference
+    });
+
+    handler.openIframe();
+  } catch (error: any) {
+    console.error("Paystack error:", error);
+    alert(`Payment error: ${error.message || "Unable to process payment"}`);
+    setIsProcessing(false);
+  }
+};
 
   const nextMonth = () => {
     if (currentMonth === 11) {
@@ -149,6 +445,7 @@ export default function BookingPage() {
   const handleDateSelect = (day: number) => {
     if (!isDateDisabled(day)) {
       setSelectedDate(new Date(currentYear, currentMonth, day))
+      setSelectedTime(null)
     }
   }
 
@@ -177,9 +474,36 @@ export default function BookingPage() {
     }
   }
 
+  const handleSubmitBooking = () => {
+    if (!selectedConsultation || !selectedDate || !selectedTime) {
+      alert("Please complete all booking details")
+      return
+    }
+
+    if (!formData.firstName || !formData.lastName || !formData.email || !formData.phone) {
+      alert("Please fill in all required fields")
+      return
+    }
+
+    // Log booking data (optional)
+    console.log({
+      consultation: selectedConsultation,
+      date: selectedDate,
+      time: selectedTime,
+      userDetails: formData,
+    })
+
+    // Proceed to Paystack payment
+    payWithPaystack()
+  }
+
   return (
     <main className="min-h-screen bg-background">
       <Navigation />
+      <Script
+        src="https://js.paystack.co/v1/inline.js"
+        strategy="afterInteractive"
+      />
 
       {/* Hero Section */}
       <section className="relative pt-32 pb-16 bg-foreground overflow-hidden">
@@ -246,6 +570,7 @@ export default function BookingPage() {
       <section className="py-16 md:py-24">
         <div className="container mx-auto px-6 lg:px-12">
           <div className="max-w-5xl mx-auto">
+            {/* ... (keep all your existing JSX for steps 1-3 exactly as is) ... */}
             {/* Step 1: Select Service */}
             {currentStep === 1 && (
               <div className="space-y-8">
@@ -330,9 +655,9 @@ export default function BookingPage() {
                             day && isDateDisabled(day) && "text-muted-foreground/50 cursor-not-allowed",
                             day && !isDateDisabled(day) && "hover:bg-primary/10 hover:text-primary",
                             selectedDate?.getDate() === day &&
-                              selectedDate?.getMonth() === currentMonth &&
-                              selectedDate?.getFullYear() === currentYear &&
-                              "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
+                            selectedDate?.getMonth() === currentMonth &&
+                            selectedDate?.getFullYear() === currentYear &&
+                            "bg-primary text-primary-foreground hover:bg-primary hover:text-primary-foreground",
                           )}
                         >
                           {day}
@@ -376,7 +701,6 @@ export default function BookingPage() {
                 </div>
               </div>
             )}
-
             {/* Step 3: Your Details */}
             {currentStep === 3 && (
               <div className="space-y-8">
@@ -399,6 +723,7 @@ export default function BookingPage() {
                         onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                         placeholder="John"
                         className="h-12"
+                        required
                       />
                     </div>
                     <div className="space-y-2">
@@ -412,6 +737,7 @@ export default function BookingPage() {
                         onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                         placeholder="Doe"
                         className="h-12"
+                        required
                       />
                     </div>
                     <div className="space-y-2">
@@ -426,6 +752,7 @@ export default function BookingPage() {
                         onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                         placeholder="john@example.com"
                         className="h-12"
+                        required
                       />
                     </div>
                     <div className="space-y-2">
@@ -440,6 +767,7 @@ export default function BookingPage() {
                         onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                         placeholder="+234 801 234 5678"
                         className="h-12"
+                        required
                       />
                     </div>
                     <div className="space-y-2">
@@ -496,7 +824,6 @@ export default function BookingPage() {
                 </div>
               </div>
             )}
-
             {/* Step 4: Payment */}
             {currentStep === 4 && (
               <div className="space-y-8">
@@ -549,39 +876,54 @@ export default function BookingPage() {
                     </div>
                   </div>
 
-                  {/* Payment Form */}
+                  {/* Payment Options */}
                   <div className="bg-card rounded-2xl border border-border p-8">
                     <h3 className="text-xl font-semibold mb-6 flex items-center gap-2">
                       <CreditCard className="w-5 h-5 text-primary" />
-                      Payment Details
+                      Payment Method
                     </h3>
                     <div className="space-y-6">
-                      <div className="space-y-2">
-                        <Label htmlFor="cardName">Cardholder Name</Label>
-                        <Input id="cardName" placeholder="John Doe" className="h-12" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="cardNumber">Card Number</Label>
-                        <Input id="cardNumber" placeholder="1234 5678 9012 3456" className="h-12" />
-                      </div>
-                      <div className="grid grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="expiry">Expiry Date</Label>
-                          <Input id="expiry" placeholder="MM/YY" className="h-12" />
+                      <div className="p-4 border border-primary/30 rounded-xl bg-primary/5">
+                        <div className="flex items-center gap-3 mb-3">
+                          <div className="w-12 h-8 bg-orange-500 rounded flex items-center justify-center text-white font-bold">
+                            PS
+                          </div>
+                          <span className="font-semibold">Paystack</span>
                         </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="cvv">CVV</Label>
-                          <Input id="cvv" placeholder="123" className="h-12" />
-                        </div>
+                        <p className="text-sm text-muted-foreground mb-4">
+                          Secure payment via Paystack. You'll be redirected to a secure payment page.
+                        </p>
                       </div>
+
                       <div className="flex items-center gap-2 text-sm text-muted-foreground">
                         <Shield className="w-4 h-4" />
                         <span>Your payment is secured with 256-bit SSL encryption</span>
                       </div>
-                      <Button className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-semibold rounded-xl">
-                        Pay ${selectedConsultation?.price} USD
-                        <ArrowRight className="ml-2 w-5 h-5" />
+
+                      <Button
+                        onClick={handleSubmitBooking}
+                        disabled={isProcessing}
+                        className="w-full h-14 bg-primary hover:bg-primary/90 text-primary-foreground text-lg font-semibold rounded-xl"
+                      >
+                        {isProcessing ? (
+                          <span className="flex items-center justify-center">
+                            <svg className="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24">
+                              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                            </svg>
+                            Processing...
+                          </span>
+                        ) : (
+                          <>
+                            Pay ${selectedConsultation?.price} USD
+                            <ArrowRight className="ml-2 w-5 h-5" />
+                          </>
+                        )}
                       </Button>
+
+                      <p className="text-xs text-muted-foreground text-center">
+                        By proceeding, you agree to our Terms of Service and Privacy Policy
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -599,7 +941,7 @@ export default function BookingPage() {
                 <ChevronLeft className="w-5 h-5 mr-2" />
                 Back
               </Button>
-              {currentStep < 4 && (
+              {currentStep < 4 ? (
                 <Button
                   onClick={handleNext}
                   disabled={!canProceed()}
@@ -607,6 +949,15 @@ export default function BookingPage() {
                 >
                   Continue
                   <ChevronRight className="w-5 h-5 ml-2" />
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleSubmitBooking}
+                  disabled={isProcessing}
+                  className="h-12 px-8 bg-primary hover:bg-primary/90 text-primary-foreground rounded-full"
+                >
+                  {isProcessing ? "Processing..." : "Complete Payment"}
+                  {!isProcessing && <ArrowRight className="w-5 h-5 ml-2" />}
                 </Button>
               )}
             </div>
